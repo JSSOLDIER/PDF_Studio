@@ -1,0 +1,70 @@
+<!doctype html>
+<html ng-app="PDF_Console">
+<head>
+	<title>Search and Display Your PDF Files</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<style>
+		input[type="file"] {
+			border-top-left-radius: 0; 	
+			-moz-border-radius-topleft: 0; 	
+			-webkit-border-top-left-radius: 0;
+
+			border-bottom-left-radius: 0; 	
+			-moz-border-radius-bottomleft: 0; 	
+			-webkit-border-bottom-left-radius: 0;
+		}
+
+		/* mouse over link */
+		a:link {
+		    text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: none; 
+		    color: red;
+		}
+
+		/* selected link */
+		a:active {
+		    text-decoration: none; 
+		    color: red;
+		}
+
+	</style>
+</head>
+<body>
+	<div ng-controller="AppCtrl">
+		<nav class="navbar navbar-default navbar-static-top">
+			<div class="container">
+				<form name="fileAddingForm" class="navbar-form navbar-left" role="search">
+					<div class="input-group input-group-sm">
+						<span class="alert alert-info input-group-addon">Add PDF files to the list</span>
+						<input type="file" file-input="files" class="btn btn-default input-group" multiple webkitdirectory/>
+					</div>
+				</form>
+				<form name="searchForm" class="navbar-form navbar-right" role="search">
+					<input ng-model="searchFile" type="text" class="form-control" placeholder="Search for a pdf document" />
+				</form>			
+			</div>
+		</nav>		
+			
+		<ul class="list-group">
+			<li ng-repeat="file in newFiles | filter:searchFile track by file.id" class="list-group-item">
+				<span class="badge btn-danger">
+					<a class="btn-danger glyphicon glyphicon-remove" id="{{file.id}}" href="" alt="{{file.id}}" ng-click="deleteFile(this.id)" aria-label="delete pdf file"></a>
+				</span>
+				<a href="">{{file.pdfFile.name}}</a>
+			</li>
+		</ul>
+		<h2>{{openedFile}}</h2>
+		<iframe ng-src="{{Folder}}" frameborder="0" id="reader"></iframe>
+	</div>
+
+	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
